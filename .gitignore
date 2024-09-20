@@ -1,0 +1,99 @@
+# .NET Core build results
+bin/
+obj/
+out/
+
+# .NET Core user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+*.vspscc
+*.vssscc
+
+# Rider project files
+.idea/
+*.sln.iml
+
+# Mac build artifacts
+.DS_Store
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Nginx config or logs (adjust the paths according to your setup)
+# nginx.conf
+logs/
+error.log
+access.log
+
+# Publish output
+publish/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Local history for JetBrains IDEs
+.idea/
+
+# User secrets (replace with the actual path if necessary)
+secrets.json
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+packages/
+
+# Resharper files
+_ReSharper.Caches/
+
+# StyleCop
+StyleCopReport.xml
+
+# dotCover
+.dotCover/
+
+# TeamCity
+_TeamCity/
+
+# Microsoft Visual Studio
+.vscode/
+.vs/
+.vscode/settings.json
+
+# Other
+*.log
+*.tlog
+*.cache
+*.pdb
+*.mdb
+
+# IIS
+/.vs/ 
+/.vsconfig
+/IISExpress
+/localhost/*_temporary_key.pfx
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# Nginx configuration backup
+*.bak
