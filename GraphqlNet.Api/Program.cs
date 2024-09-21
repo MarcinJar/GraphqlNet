@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
  
 // Register AppDbContext with pooling
 builder.Services.AddDbContextPool<AppDbContext>(options =>
@@ -29,7 +30,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseWebSockets();
+
 app.MapGraphQL();
+
+app.MapControllers(); 
 
 // Ensure the database is created
 using (var scope = app.Services.CreateScope())

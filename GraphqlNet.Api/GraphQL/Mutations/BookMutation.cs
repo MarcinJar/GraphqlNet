@@ -1,6 +1,8 @@
 using GraphqlNet.Api.Data;
 using GraphqlNet.Api.Enums;
+using GraphqlNet.Api.GraphQL.Subscriptions;
 using GraphqlNet.Api.Models;
+using HotChocolate.Subscriptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace GraphqlNet.Api.GraphQL.Mutations;
@@ -21,22 +23,27 @@ public class AddBookInput
 
 public partial class Mutation
 {
-    public async Task<Book> AddBookAsync(AddBookInput input, [Service] AppDbContext dbContext)
+    public async Task<Book> AddBookAsync(
+        AddBookInput input, 
+        [Service] AppDbContext dbContext, 
+        [Service] ITopicEventSender eventSender)
     {
         var (title, authorId, genre) = input;
 
         var author = await dbContext.Authors
             .FirstOrDefaultAsync(a => a.ID == input.AuthorId) ?? throw new InvalidOperationException("Author not found.");
         
-        var book = new Book { 
+        var newBook = new Book { 
             Title = title, 
             AuthorID = authorId, 
             Genre = genre, 
             Author = author };
 
-        dbContext.Books.Add(book);
+        dbContext.Books.Add(newBook);
         await dbContext.SaveChangesAsync();
 
-        return book;
+        await eventSender.SendAsync(SubscriptionEvents.OnBookAdded, newBook);
+
+        return newBook;
     }
 }

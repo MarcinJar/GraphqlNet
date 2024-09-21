@@ -7,7 +7,6 @@ public partial class Query
 {
     [UseProjection]
     [UseFiltering]
-    [UsePaging]
     [UseSorting]
     public IQueryable<BookReview> GetAllRewiews([Service] AppDbContext dbContext)
     {

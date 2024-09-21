@@ -1,5 +1,4 @@
 using GraphqlNet.Api.Data;
-using GraphqlNet.Api.GraphQL.Queries;
 using GraphqlNet.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +9,7 @@ public class BookType : ObjectType<Book>
     protected override void Configure(IObjectTypeDescriptor<Book> descriptor)
     {
         descriptor.Field(a => a.BookReviews).UseDataloader<BookReviewDataLoader>();
+        descriptor.Field(a => a.BookEditions).UseDataloader<BookEditionDataLoader>();
     }
 
     private class BookReviewDataLoader(
@@ -20,11 +20,28 @@ public class BookType : ObjectType<Book>
             IReadOnlyList<Guid> keys,
             CancellationToken cancellationToken)
         {
-            var bookReviews = await dbContext.BookReviews
+            var reviews = await dbContext.BookReviews
                 .Where(r => keys.Contains(r.BookID))
                 .ToListAsync(cancellationToken);
 
-            return bookReviews.GroupBy(r => r.BookID)
+            return reviews.GroupBy(r => r.BookID)
+                .ToDictionary(g => g.Key, g => g.ToList());
+        }
+    }
+
+    private class BookEditionDataLoader(
+        AppDbContext dbContext, 
+        IBatchScheduler batchScheduler) : BatchDataLoader<Guid, List<BookEdition>>(batchScheduler)
+    {
+        protected override async Task<IReadOnlyDictionary<Guid, List<BookEdition>>> LoadBatchAsync(
+            IReadOnlyList<Guid> keys,
+            CancellationToken cancellationToken)
+        {
+            var editions = await dbContext.BookEditions
+                .Where(r => keys.Contains(r.BookID))
+                .ToListAsync(cancellationToken);
+
+            return editions.GroupBy(r => r.BookID)
                 .ToDictionary(g => g.Key, g => g.ToList());
         }
     }
