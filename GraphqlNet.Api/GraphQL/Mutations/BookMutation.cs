@@ -1,30 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using GraphqlNet.Api.Data;
 using GraphqlNet.Api.GraphQL.Types;
 using GraphqlNet.Api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraphqlNet.Api.GraphQL.Mutations;
 
 public partial class Mutation
 {
-    public async Task<Book> AddBookAsync(BookInput input, [Service] AppDbContext context)
+    public async Task<Book> AddBookAsync(BookInput input, [Service] AppDbContext dbContext)
     {
         var (title, authorId, genre) = input;
 
-        var author = context.Authors
-            .FirstOrDefault(a => a.ID == input.AuthorId) ?? throw new InvalidOperationException("Author not found.");
+        var author = await dbContext.Authors
+            .FirstOrDefaultAsync(a => a.ID == input.AuthorId) ?? throw new InvalidOperationException("Author not found.");
         
         var book = new Book { 
             Title = title, 
-            AuthorId = authorId, 
+            AuthorID = authorId, 
             Genre = genre, 
             Author = author };
 
-        context.Books.Add(book);
-        await context.SaveChangesAsync();
+        dbContext.Books.Add(book);
+        await dbContext.SaveChangesAsync();
 
         return book;
     }

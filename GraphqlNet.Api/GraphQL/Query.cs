@@ -4,21 +4,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GraphqlNet.Api.GraphQL;
 
-public class Query
+public partial class Query
 {
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Book> GetBooks([Service] AppDbContext context)
+    public IQueryable<Book> GetBooks([Service] AppDbContext dbContext)
     {
-        return context.Books;
+        return dbContext.Books;
     }
+
 
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Author> GetAuthors([Service] AppDbContext context)
+    public IQueryable<Person> GetPersons([Service] AppDbContext dbContext)
     {
-        return context.Authors;
+        return dbContext.Persons;
     }
 }

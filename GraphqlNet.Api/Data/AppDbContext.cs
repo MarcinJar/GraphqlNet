@@ -1,4 +1,3 @@
-// Data/AppDbContext.cs
 using GraphqlNet.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +18,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<Book>()
             .HasOne(b => b.Author)
             .WithMany(a => a.Books)
-            .HasForeignKey(b => b.AuthorId);
+            .HasForeignKey(b => b.AuthorID);
 
         modelBuilder.Entity<BookReview>()
             .HasOne(br => br.Reviewer)
@@ -28,8 +27,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
         modelBuilder.Entity<BookReview>()
             .HasOne(br => br.Book)
-            .WithOne(b => b.BookReview)
-            .HasForeignKey<BookReview>(br => br.BookID);
+            .WithMany(b => b.BookReviews)
+            .HasForeignKey(br => br.BookID);
 
         modelBuilder.Entity<Author>()
             .HasOne(a => a.Person)
