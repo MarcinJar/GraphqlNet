@@ -17,8 +17,7 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
 // Add GraphQL services
 builder.Services
     .AddGraphQLServer()
-    .AddQueryType<Query>()
-    .AddMutations()
+    .AddQueryAndMutation()
     .AddProjections()
     .AddFiltering()
     .AddSorting()

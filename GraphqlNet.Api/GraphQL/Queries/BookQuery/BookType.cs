@@ -1,4 +1,4 @@
-using GraphqlNet.Api.GraphQL.Queries.RewiewQuery;
+using GraphqlNet.Api.GraphQL.Queries;
 using GraphqlNet.Api.Models;
 
 namespace GraphqlNet.Api.GraphQL.Queries.AuthorQuery;

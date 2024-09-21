@@ -3,7 +3,7 @@ using GraphqlNet.Api.Data;
 using GraphqlNet.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace GraphqlNet.Api.GraphQL.Queries.RewiewQuery;
+namespace GraphqlNet.Api.GraphQL.Queries;
 
 public class BookReviewDataLoader : BatchDataLoader<Guid, List<BookReview>>
 {

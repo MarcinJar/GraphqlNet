@@ -1,7 +1,7 @@
 using GraphqlNet.Api.Data;
 using GraphqlNet.Api.Models;
 
-namespace GraphqlNet.Api.GraphQL.Queries.BookQuery;
+namespace GraphqlNet.Api.GraphQL.Queries;
 
 public partial class Query
 {
