@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 
 // Register AppDbContext with pooling
 builder.Services.AddDbContextPool<AppDbContext>(options =>
-    options.UseSqlite("Data Source=books.db"));
+    options.UseSqlite("Data Source=./Data/books.db"));
 
 // Add GraphQL services
 builder.Services
