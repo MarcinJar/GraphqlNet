@@ -2,7 +2,7 @@
 using GraphqlNet.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace GraphQLDemo.Data;
+namespace GraphqlNet.Api.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {

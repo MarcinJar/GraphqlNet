@@ -1,4 +1,4 @@
-using GraphQLDemo.Data;
+using GraphqlNet.Api.Data;
 using GraphqlNet.Api.Models;
 using Microsoft.EntityFrameworkCore;
 

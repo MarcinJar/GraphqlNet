@@ -1,5 +1,7 @@
-using GraphQLDemo.Data;
+
+using GraphqlNet.Api.Data;
 using GraphqlNet.Api.GraphQL;
+using GraphqlNet.Api.GraphQL.Mutations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+ 
 // Register AppDbContext with pooling
 builder.Services.AddDbContextPool<AppDbContext>(options =>
     options.UseSqlite("Data Source=./Data/PublishingHouseDB.db"));
@@ -16,7 +18,7 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
-    .AddMutationType<Mutation>() // Add this if you have a mutation class
+    .AddMutations()
     .AddProjections()
     .AddFiltering()
     .AddSorting()
