@@ -10,6 +10,6 @@ public class Book
     public Guid AuthorID { get; set; }
 
     public required Author Author { get; set; }
-    public List<BookReview> BookReviews { get; set; } = [];
-    public List<BookEdition> BookEditions { get; set; } = [];
+    public ICollection<BookReview> BookReviews { get; set; } = [];
+    public ICollection<BookEdition> BookEditions { get; set; } = [];
 }

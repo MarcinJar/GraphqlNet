@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace GraphqlNet.Api.Models;
 
 public class Person
@@ -12,7 +6,6 @@ public class Person
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
 
-    [NotMapped]
     public string FullName => FirstName + " " + LastName;
 
     public required string Email { get; set; }

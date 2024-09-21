@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace GraphqlNet.Api.Models;
 
 public class Reviewer
@@ -11,5 +6,5 @@ public class Reviewer
     public Guid PersonID { get; set; }
 
     public required Person Person { get; set; }
-    public List<BookReview> BookReviews { get; set; } = [];
+    public ICollection<BookReview> BookReviews { get; set; } = [];
 }
