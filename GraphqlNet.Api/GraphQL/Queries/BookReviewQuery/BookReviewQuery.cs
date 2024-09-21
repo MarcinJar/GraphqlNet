@@ -8,8 +8,8 @@ public partial class Query
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Book> GetBooks([Service] AppDbContext dbContext)
+    public IQueryable<BookReview> GetBookRewiews([Service] AppDbContext dbContext)
     {
-        return dbContext.Books;
+        return dbContext.BookReviews;
     }
 }

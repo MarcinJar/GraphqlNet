@@ -10,8 +10,8 @@ public class BookInput
 
     public void Deconstruct (out string title, out Guid authorId, out GenreEnum genre)
     {
-      title = Title;
-      authorId = AuthorId;
-      genre = Genre;
+		title = Title;
+		authorId = AuthorId;
+		genre = Genre;
     }
 }

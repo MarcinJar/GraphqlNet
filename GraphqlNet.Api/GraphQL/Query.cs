@@ -9,17 +9,16 @@ public partial class Query
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Book> GetBooks([Service] AppDbContext dbContext)
+    public IQueryable<Person> GetPersons([Service] AppDbContext dbContext)
     {
-        return dbContext.Books;
+        return dbContext.Persons;
     }
-
 
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Person> GetPersons([Service] AppDbContext dbContext)
+    public IQueryable<Reviewer> GetReviewers([Service] AppDbContext dbContext)
     {
-        return dbContext.Persons;
+        return dbContext.Reviewers;
     }
 }

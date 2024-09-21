@@ -7,6 +7,6 @@ public class BookType : ObjectType<Book>
 {
     protected override void Configure(IObjectTypeDescriptor<Book> descriptor)
     {
-        descriptor.Field(a => a.BookReviews).UseDataloader<ReviewDataLoader>();
+        descriptor.Field(a => a.BookReviews).UseDataloader<BookReviewDataLoader>();
     }
 }

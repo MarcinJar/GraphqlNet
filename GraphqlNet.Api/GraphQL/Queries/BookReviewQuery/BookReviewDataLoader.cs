@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GraphqlNet.Api.GraphQL.Queries.RewiewQuery;
 
-public class ReviewDataLoader : BatchDataLoader<Guid, List<BookReview>>
+public class BookReviewDataLoader : BatchDataLoader<Guid, List<BookReview>>
 {
     private readonly AppDbContext _dbContext;
 
-    public ReviewDataLoader(AppDbContext dbContext, IBatchScheduler batchScheduler)
+    public BookReviewDataLoader(AppDbContext dbContext, IBatchScheduler batchScheduler)
         : base(batchScheduler)
     {
         _dbContext = dbContext;
