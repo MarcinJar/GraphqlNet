@@ -2,7 +2,6 @@ namespace GraphqlNet.Api.Models;
 
 public class BookReview
 {
-    // ID - GUID
     public Guid ID { get; set; }
     public Guid ReviewerID { get; set; }
     public Guid BookID { get; set; } 

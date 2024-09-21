@@ -12,4 +12,9 @@ public partial class Query
     {
         return dbContext.Books;
     }
+
+    public int TotalBooksCount([Service] AppDbContext dbContext)
+    {
+        return dbContext.Books.Count();
+    }
 }

@@ -7,7 +7,7 @@ public class BookEdition
     public Guid ID { get; set; }
     public Guid BookID { get; set; }
     public int EditionNumber { get; set; }
-    public FormatEnum Format { get; set; } // Hardcover, Paperback, Digital
+    public FormatEnum Format { get; set; }
     public Guid PublisherID { get; set; }
     public DateTime PublicationDate { get; set; }
 

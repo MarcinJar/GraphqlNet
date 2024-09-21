@@ -1,15 +1,19 @@
-﻿
-using GraphqlNet.Api.GraphQL.Queries;
+﻿using GraphqlNet.Api.GraphQL.Queries;
 using HotChocolate.Execution.Configuration;
 
 namespace GraphqlNet.Api.GraphQL.Mutations;
 
 public static partial class ServiceExtensions
 {
-    public static IRequestExecutorBuilder AddQueryAndMutation(this IRequestExecutorBuilder services)
+    public static IRequestExecutorBuilder AddGraphQLFacilities(this IServiceCollection services)
     {
         return services
+            .AddGraphQLServer()
             .AddMutationType<Mutation>()
-            .AddQueryType<Query>();
+            .AddQueryType<Query>()    
+            .AddProjections()
+            .AddFiltering()
+            .AddSorting()
+            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
     }
 }

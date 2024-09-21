@@ -1,13 +1,27 @@
 using GraphqlNet.Api.Data;
-using GraphqlNet.Api.GraphQL.Types;
+using GraphqlNet.Api.Enums;
 using GraphqlNet.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GraphqlNet.Api.GraphQL.Mutations;
 
+public class AddBookInput
+{
+    public required string Title { get; set; }
+    public required Guid AuthorId { get; set; }
+    public GenreEnum Genre { get; set; } = GenreEnum.NonFiction;
+
+    public void Deconstruct (out string title, out Guid authorId, out GenreEnum genre)
+    {
+		title = Title;
+		authorId = AuthorId;
+		genre = Genre;
+    }
+}
+
 public partial class Mutation
 {
-    public async Task<Book> AddBookAsync(BookInput input, [Service] AppDbContext dbContext)
+    public async Task<Book> AddBookAsync(AddBookInput input, [Service] AppDbContext dbContext)
     {
         var (title, authorId, genre) = input;
 

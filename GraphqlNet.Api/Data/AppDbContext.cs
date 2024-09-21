@@ -26,7 +26,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         base.OnModelCreating(modelBuilder);
     }
 
-    private void ConfigureBook(ModelBuilder modelBuilder)
+    private static void ConfigureBook(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Book>()
             .HasKey(b => b.ID); 
@@ -37,7 +37,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .HasForeignKey(b => b.AuthorID);
     }
 
-    private void ConfigureAuthor(ModelBuilder modelBuilder)
+    private static void ConfigureAuthor(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Author>()
             .HasKey(a => a.ID);
@@ -52,7 +52,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .HasForeignKey<Author>(a => a.PersonID);
     }
 
-    private void ConfigureReviewer(ModelBuilder modelBuilder)
+    private static void ConfigureReviewer(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Reviewer>()
             .HasKey(r => r.ID); 
@@ -72,13 +72,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .HasForeignKey<Reviewer>(r => r.PersonID);
     }
 
-    private void ConfigurePerson(ModelBuilder modelBuilder)
+    private static void ConfigurePerson(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Person>()
             .HasKey(p => p.ID); 
     }
 
-    private void ConfigureBookReview(ModelBuilder modelBuilder)
+    private static void ConfigureBookReview(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<BookReview>()
             .HasKey(br => br.ID);
@@ -94,7 +94,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .HasForeignKey(br => br.BookID);
     }
 
-    private void ConfigureBookEdition(ModelBuilder modelBuilder)
+    private static void ConfigureBookEdition(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<BookEdition>()
             .HasKey(be => be.ID);
@@ -111,7 +111,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     }
 
     
-    private void ConfigurePublishingHouse(ModelBuilder modelBuilder)
+    private static void ConfigurePublishingHouse(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<PublishingHouse>()
             .HasKey(ph => ph.ID);
