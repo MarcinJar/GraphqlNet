@@ -6,9 +6,9 @@ public class BookInput
 {
     public required string Title { get; set; }
     public required Guid AuthorId { get; set; }
-    public Genre Genre { get; set; } = Genre.NonFiction;
+    public GenreEnum Genre { get; set; } = GenreEnum.NonFiction;
 
-    public void Deconstruct (out string title, out Guid authorId, out Genre genre)
+    public void Deconstruct (out string title, out Guid authorId, out GenreEnum genre)
     {
       title = Title;
       authorId = AuthorId;

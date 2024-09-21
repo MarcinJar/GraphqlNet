@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GraphqlNet.Api.Enums;
 
-public enum Genre
+public enum GenreEnum
 {
     Fiction,
     NonFiction,

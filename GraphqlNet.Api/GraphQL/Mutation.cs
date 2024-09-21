@@ -11,7 +11,7 @@ public class Mutation
         var (title, authorId, genre) = input;
 
         var author = context.Authors
-            .FirstOrDefault(a => a.Id == input.AuthorId) ?? throw new InvalidOperationException("Author not found.");
+            .FirstOrDefault(a => a.ID == input.AuthorId) ?? throw new InvalidOperationException("Author not found.");
         
         var book = new Book { 
             Title = title, 
@@ -25,11 +25,14 @@ public class Mutation
         return book;
     }
 
-    public async Task<Author> AddAuthorAsync(string name, [Service] AppDbContext context)
+    public async Task<Author> AddAuthorAsync(Guid personId, string name, [Service] AppDbContext context)
     {
+        var person = context.Persons
+            .FirstOrDefault(a => a.ID == personId) ?? throw new InvalidOperationException("Author not found.");
+
         var newAuthor = new Author { 
-            Id = Guid.NewGuid(), 
-            Name = name, 
+            ID = Guid.NewGuid(), 
+            Person = person,
             Books = [] 
         };
 

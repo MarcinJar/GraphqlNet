@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace GraphqlNet.Api.Models;
 
-public class Author
+public class Reviewer
 {
-    public required Guid ID { get; set; }
+    public Guid ID { get; set; }    
     public Guid PersonID { get; set; }
-    public List<Book> Books { get; set; } = [];
 
     public required Person Person { get; set; }
+    public List<BookReview> BookReviews { get; set; } = [];
 }
