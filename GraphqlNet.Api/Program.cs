@@ -6,24 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
- 
-// Register AppDbContext with pooling
+
 builder.Services.AddDbContextPool<AppDbContext>(options =>
     options.UseSqlite("Data Source=./Data/PublishingHouseDB.db"));
 
-// Add GraphQL services
-builder.Services
-    .AddGraphQLFacilities();
+builder.Services.AddGraphQLFacilities();
 
 var app = builder.Build();
 
+app.UseLoggingMiddleware();
 app.UseErrorHandlingMiddleware();
 
-// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -31,20 +27,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseWebSockets();
-
 app.UseTimeoutMiddleware();
-
 app.MapGraphQL();
-
 app.MapControllers(); 
 
-// Ensure the database is created
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    dbContext.Database.EnsureCreated(); // Ensure SQLite DB is created if it doesn't exist
+    dbContext.Database.EnsureCreated(); 
 }
 
 app.Run();
