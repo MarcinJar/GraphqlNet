@@ -17,6 +17,7 @@ public static partial class ServiceExtensions
             .AddSorting()
             .AddSubscriptionType<Subscription>()
             .AddInMemorySubscriptions()
-            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
+            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true)
+            .AddMaxExecutionDepthRule(6);
     }
 }

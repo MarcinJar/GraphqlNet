@@ -21,6 +21,8 @@ builder.Services
 
 var app = builder.Build();
 
+app.UseErrorHandlingMiddleware();
+
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
