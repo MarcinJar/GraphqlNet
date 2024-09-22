@@ -46,4 +46,19 @@ public partial class Mutation
 
         return newBook;
     }
+
+    public async Task<Book> UpdateBookTitleAsync(
+        Guid bookId,
+        string title, 
+        [Service] AppDbContext dbContext)
+    {
+        var book = await dbContext.Books
+            .FirstOrDefaultAsync(a => a.ID == bookId) ?? throw new InvalidOperationException("Book not found.");
+        
+        book.Title = title;
+        dbContext.Books.Update(book);
+        await dbContext.SaveChangesAsync();
+
+        return book;
+    }
 }

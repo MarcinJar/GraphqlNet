@@ -1,8 +1,9 @@
-﻿using GraphqlNet.Api.GraphQL.Queries;
+﻿using GraphqlNet.Api.GraphQL.Mutations;
+using GraphqlNet.Api.GraphQL.Queries;
 using GraphqlNet.Api.GraphQL.Subscriptions;
 using HotChocolate.Execution.Configuration;
 
-namespace GraphqlNet.Api.GraphQL.Mutations;
+namespace GraphqlNet.Api.GraphQL;
 
 public static partial class ServiceExtensions
 {
@@ -17,7 +18,7 @@ public static partial class ServiceExtensions
             .AddSorting()
             .AddSubscriptionType<Subscription>()
             .AddInMemorySubscriptions()
-            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true)
-            .AddMaxExecutionDepthRule(6);
+            .ModifyRequestOptions(opt => opt.IncludeExceptionDetails = true);
+           // .AddMaxExecutionDepthRule(10);
     }
 }

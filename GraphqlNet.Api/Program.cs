@@ -1,6 +1,6 @@
 
 using GraphqlNet.Api.Data;
-using GraphqlNet.Api.GraphQL.Mutations;
+using GraphqlNet.Api.GraphQL;
 using GraphqlNet.Api.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,15 +10,30 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddDbContextPool<AppDbContext>(options =>
     options.UseSqlite("Data Source=./Data/PublishingHouseDB.db"));
 
 builder.Services.AddGraphQLFacilities();
 
+builder.Logging.AddConsole(); 
+
 var app = builder.Build();
+
+app.UseCors("AllowAllOrigins"); 
 
 app.UseLoggingMiddleware();
 app.UseErrorHandlingMiddleware();
+app.UseTimeoutMiddleware();
 
 if (app.Environment.IsDevelopment())
 {
@@ -28,7 +43,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseWebSockets();
-app.UseTimeoutMiddleware();
+
+app.UseRouting();
+
 app.MapGraphQL();
 app.MapControllers(); 
 
