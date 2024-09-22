@@ -1,7 +1,7 @@
 
 using GraphqlNet.Api.Data;
-using GraphqlNet.Api.GraphQL;
 using GraphqlNet.Api.GraphQL.Mutations;
+using GraphqlNet.Api.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +31,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseWebSockets();
+
+app.UseTimeoutMiddleware();
 
 app.MapGraphQL();
 
