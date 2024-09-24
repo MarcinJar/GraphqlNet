@@ -23,6 +23,7 @@ public class AddBookInput
 
 public partial class Mutation
 {
+    [GraphQLDescription("Add a new book")]
     public async Task<Book> AddBookAsync(
         AddBookInput input, 
         [Service] AppDbContext dbContext, 
