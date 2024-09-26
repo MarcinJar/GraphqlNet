@@ -16,7 +16,7 @@ public static partial class ServiceExtensions
             .ModifyOptions(opt => opt.DefaultResolverStrategy = ExecutionStrategy.Serial)
             .AddMutationType<Mutation>()
             .AddQueryType<Query>() 
-            .UseField<CustomLoggingMiddleware>()   
+            // .UseField<CustomLoggingMiddleware>()   
             .AddProjections()
             .AddFiltering()
             .AddSorting()

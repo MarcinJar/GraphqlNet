@@ -1,4 +1,4 @@
-export default function Textarea({label = '', type = 'text', ...props}){
+export default function Textarea({label = '', ...props}){
   return (
     <label>
       <span className={`text-gray-500 text-sm mb-1 block ` + (label === '' && `hidden`)}>

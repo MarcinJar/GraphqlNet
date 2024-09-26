@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Input from "../Input";
-import Checkbox from "../Checkbox";
 
 export default function RegisterForm() {
   return <form className="overflow-hidden bg-white rounded-lg shadow-xl">

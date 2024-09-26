@@ -1,4 +1,9 @@
-export default function Spinner({width = 'w-5', height = 'h-5'}) {
+interface SpinnerProps {
+  width?: string;
+  height?: string;  // Define custom width and height for the spinner SVG. Default is 'w-5 h-5'.
+}
+
+export default function Spinner({}: SpinnerProps) {
   return (
       <svg className={`animate-spin text-blue-600 mr-3`} xmlns="http://www.w3.org/2000/svg" fill="none"
            viewBox="0 0 24 24">

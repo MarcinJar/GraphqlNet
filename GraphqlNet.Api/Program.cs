@@ -1,4 +1,3 @@
-
 using GraphqlNet.Api.Data;
 using GraphqlNet.Api.GraphQL;
 using GraphqlNet.Api.Middlewares;
@@ -32,7 +31,7 @@ var app = builder.Build();
 
 app.UseCors("AllowAllOrigins"); 
 
-app.UseLoggingMiddleware();
+// app.UseLoggingMiddleware();
 app.UseErrorHandlingMiddleware();
 app.UseTimeoutMiddleware();
 
@@ -46,6 +45,9 @@ app.UseHttpsRedirection();
 app.UseWebSockets();
 
 app.UseRouting();
+
+app.MapGraphQL();
+app.MapControllers(); 
 
 // Access the IWebHostEnvironment
 var env = app.Environment;
@@ -65,21 +67,6 @@ app.MapFallbackToFile("/index.html", new StaticFileOptions
         System.IO.Path.Combine(Directory.GetCurrentDirectory(), "client-app", ".next", "server", "app")),
     RequestPath = "" // No request path for the fallback
 });
-
-if (env.IsDevelopment())
-{
-    // Configure the app to serve the Next.js app
-    app.UseSpa(spa =>
-    {
-        // Set the source path to the Next.js application
-        spa.Options.SourcePath = "client-app"; // This should point to the root of your Next.js app
-        // Start Next.js in dev mode
-        spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
-    });
-}
-
-app.MapGraphQL();
-app.MapControllers(); 
 
 using (var scope = app.Services.CreateScope())
 {

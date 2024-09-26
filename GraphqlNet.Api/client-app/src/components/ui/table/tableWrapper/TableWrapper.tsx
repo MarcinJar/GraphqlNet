@@ -1,7 +1,7 @@
 import Card from "@/components/card/Card";
 import Pagination from "../../pagination/Pagination";
 
-export default function TableWrapper({children}) {
+export default function TableWrapper({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <Card className="overflow-x-auto mb-5">
