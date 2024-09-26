@@ -1,18 +1,16 @@
-// import LoginForm from "@/components/form/loginForm/LoginForm";
-// import Logo from "@/components/logo/Logo";
+import LoginForm from "@/components/form/loginForm/LoginForm";
+import Logo from "@/components/logo/Logo";
 import React from 'react';
-
-
 
 export default function Login() {
   return <>
     <div className="flex items-center justify-center min-h-screen bg-blue-900">
       <div>
         <div className="w-full flex justify-center">
-          {/* <Logo/> */}
+          <Logo/>
         </div>
         <div className="w-full mt-3">
-          {/* <LoginForm/> */}
+          <LoginForm/>
         </div>
       </div>
     </div>

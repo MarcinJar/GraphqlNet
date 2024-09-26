@@ -19,7 +19,7 @@ export default function LoginForm() {
       </div>
     </div>
     <footer className="flex items-center justify-center space-x-2 px-10 py-4 bg-gray-100 border-t border-gray-200">
-      <Link href="/admin" className="btn btn-primary">
+      <Link href="/books" className="btn btn-primary">
         Zaloguj się
       </Link>
       <Link href="/auth/register" className="btn btin-link">

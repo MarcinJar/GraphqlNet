@@ -1,10 +1,11 @@
+"use client";
 import Logo from "@/components/logo/Logo"
 import MainMenu from "@/components/menu/mainMenu/MainMenu"
 import Footer from "@/components/ui/footer/Footer"
 import MenuIcon from "@/components/ui/icon/MenuIcon"
 import { useState } from "react"
 
-export default function PrimaryNavbar({className}) {
+export default function PrimaryNavbar({}) {
   const [isVisible, setIsVisible] = useState(false)
 
   function handleOnClick() {
@@ -17,7 +18,9 @@ export default function PrimaryNavbar({className}) {
         <Logo/>
 
         <div className="flex justify-end relative w-3/4 md:hidden">
-          <MenuIcon onClick={handleOnClick}/>
+          <div onClick={handleOnClick}>
+            <MenuIcon/>
+          </div>
           <div className={`absolute top-8 right-0 z-50 text-center ` + (!isVisible && 'hidden')}>
             <div className="bg-blue-800 p-5 rounded shadow-xl border border-blue-700 font-normal">
               <MainMenu/>

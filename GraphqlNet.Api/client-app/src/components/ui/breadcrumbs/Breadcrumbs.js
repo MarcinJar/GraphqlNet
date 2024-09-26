@@ -7,8 +7,8 @@ export default function Breadcrumbs({title = ''}) {
       <BreadcrumbItem url="/">
         <HomeIcon/>
       </BreadcrumbItem>
-      <BreadcrumbItem url="/admin">
-        <span className="ml-2">Panel administratora</span>
+      <BreadcrumbItem url="/books">
+        <span className="ml-2">Main page</span>
       </BreadcrumbItem>
       <BreadcrumbItem isCurrent={true}>
         {title}

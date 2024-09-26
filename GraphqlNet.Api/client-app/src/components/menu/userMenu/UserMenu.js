@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link"
 import { useState } from "react"
 
@@ -12,9 +13,9 @@ export default function UserMenu() {
     <>
       <div className="relative" onClick={handleOnClick}>
         <strong>Marcin </strong>
-        <spn className="hidden md:inline">
+        <span className="hidden md:inline">
           Jarmułowski
-        </spn>
+        </span>
         <div className={`absolute top-8 right-0 bg-white p-5 rounded shadow-xl border 
         border-gray-100 font-normal ` + (!isVisible && 'hidden')}>
           <ul>

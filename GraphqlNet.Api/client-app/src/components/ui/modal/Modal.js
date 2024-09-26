@@ -1,3 +1,4 @@
+"use client";
 import ButtonPrimary from "@/components/button/ButtonPrimary";
 import { handleOnClickStopPropagation } from "@/utils/eventsHandling";
 import { useState } from "react";
