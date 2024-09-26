@@ -1,0 +1,5 @@
+
+
+.separator-horizontal {
+	@apply border-b-4 bg-gray-300 w-32 inline-block my-5 h-1
+}
