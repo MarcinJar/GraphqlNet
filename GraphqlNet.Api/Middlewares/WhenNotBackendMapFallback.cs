@@ -2,32 +2,28 @@ namespace GraphqlNet.Api.Middlewares;
 
 public static class WhenNotBackendMapFallbackExitension
 {
-    public static IApplicationBuilder UseWhenNotBackendMapFallback(this IApplicationBuilder @this)
+    public static IEndpointConventionBuilder UseWhenNotBackendMapFallback(this WebApplication @this)
     {
-        return @this.UseWhen(context => !context.Request.Path.StartsWithSegments("/graphql"), appBranch =>
+        return @this.MapFallback(async context =>
         {
-            appBranch.UseEndpoints(endpoints => endpoints.MapFallback(async context =>
-            {
-                var path = context.Request.Path.Value;
+            var path = context.Request.Path.Value;
 
-                var pathSplited = path?.Split("/") ?? [];
+            if (path?.StartsWith("/graphql") ?? false)
+                return;
 
-                var allPathParams = new List<string> { Directory.GetCurrentDirectory(), "client-app", ".next", "server", "app" };
+            var pathSplited = (path?.Split("/", StringSplitOptions.RemoveEmptyEntries) ?? []).ToList();
 
-                allPathParams.AddRange(pathSplited);
-                allPathParams.ForEach(path => Console.WriteLine(path));
-                allPathParams.Remove(string.Empty);
+            if (pathSplited is [])
+                pathSplited.Add("index");
 
-                if (allPathParams.Contains(string.Empty))
-                {
-                    allPathParams.Add("index");
-                }
+            var allPathParams = new List<string> { Directory.GetCurrentDirectory(), "client-app", ".next", "server", "app" };
 
-                var filePath = System.IO.Path.Combine([.. allPathParams]) + ".html";
+            allPathParams.AddRange(pathSplited);
 
-                context.Response.ContentType = "text/html";
-                await context.Response.SendFileAsync(filePath);
-            }));
+            var filePath = System.IO.Path.Combine([.. allPathParams]) + ".html";
+
+            context.Response.ContentType = "text/html";
+            await context.Response.SendFileAsync(filePath);
         });
     }
 }

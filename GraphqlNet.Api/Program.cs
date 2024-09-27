@@ -58,7 +58,6 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseWhenNotBackendMapFallback();
 
-
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
