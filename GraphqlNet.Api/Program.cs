@@ -49,12 +49,11 @@ app.UseRouting();
 app.MapGraphQL();
 app.MapControllers(); 
 
-// Serve static files from the .next directory
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
         System.IO.Path.Combine(Directory.GetCurrentDirectory(), "client-app", ".next")),
-    RequestPath = "/_next" // Adjust this path as necessary for your application
+    RequestPath = "/_next"
 });
 
 app.UseWhenNotBackendMapFallback();

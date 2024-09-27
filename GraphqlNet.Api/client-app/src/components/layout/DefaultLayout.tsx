@@ -21,7 +21,7 @@ export default function DefaultLayout({ children, title = '' }: DefaultLayoutPro
         <div className="hidden md:flex items-start justify-between px-8 py-8 bg-blue-800
           text-blue-100 md:flex-shrink-0 md:w-56 md:justify-start">
           <div className="relative">
-             <MainMenu className={undefined}/>
+             <MainMenu/>
              <Footer className={undefined}/>
           </div>
         </div>
