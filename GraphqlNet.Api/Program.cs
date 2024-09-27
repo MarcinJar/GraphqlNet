@@ -49,9 +49,6 @@ app.UseRouting();
 app.MapGraphQL();
 app.MapControllers(); 
 
-// Access the IWebHostEnvironment
-var env = app.Environment;
-
 // Serve static files from the .next directory
 app.UseStaticFiles(new StaticFileOptions
 {
@@ -60,13 +57,22 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/_next" // Adjust this path as necessary for your application
 });
 
-// Fallback to Next.js for unmatched routes
-app.MapFallbackToFile("/index.html", new StaticFileOptions
+app.UseWhenNotBackendMapFallback();
+
+
+if (app.Environment.IsDevelopment())
 {
-    FileProvider = new PhysicalFileProvider(
-        System.IO.Path.Combine(Directory.GetCurrentDirectory(), "client-app", ".next", "server", "app")),
-    RequestPath = "" // No request path for the fallback
-});
+    app.UseDeveloperExceptionPage();
+
+    app.UseWhen(context => !context.Request.Path.StartsWithSegments("/graphql"), appBranch =>
+    {
+        appBranch.UseSpa(spa =>
+        {
+            spa.Options.SourcePath = "client-app"; // Your Next.js source folder
+            spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+        });
+    });
+}
 
 using (var scope = app.Services.CreateScope())
 {

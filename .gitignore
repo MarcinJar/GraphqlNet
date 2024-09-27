@@ -99,3 +99,6 @@ logs/
 *.bak
 
 .vs/
+
+*.db-shm
+*.db-wal
