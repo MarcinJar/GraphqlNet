@@ -1,0 +1,374 @@
+type Mutation {
+  addAuthor(personId: UUID!): Author!
+
+  """
+  Add a new book
+  """
+  addBook(input: AddBookInput!): Book!
+  updateBookTitle(bookId: UUID!, title: String!): Book!
+  addBookReview(input: AddBookReviewInput!): BookReview!
+  addPerson(input: AddPersonInput!): Person!
+  addReviewer(personId: UUID!): Reviewer!
+}
+
+type Query {
+  authors(where: AuthorFilterInput, order: [AuthorSortInput!]): [Author!]!
+
+  """
+  Get a list of books
+  """
+  books(where: BookFilterInput, order: [BookSortInput!]): [Book!]!
+
+  """
+  Get the total count of books
+  """
+  totalBooks: Int!
+  allRewiews(
+    where: BookReviewFilterInput
+    order: [BookReviewSortInput!]
+  ): [BookReview!]!
+  bookRewiews(
+    bookId: UUID!
+    where: BookReviewFilterInput
+    order: [BookReviewSortInput!]
+  ): [BookReview!]!
+  totalRewiewsCount: Int!
+  persons(where: PersonFilterInput, order: [PersonSortInput!]): [Person!]!
+  reviewers(
+    where: ReviewerFilterInput
+    order: [ReviewerSortInput!]
+  ): [Reviewer!]!
+}
+
+type Subscription {
+  onBookAdded: Book!
+}
+
+input AuthorFilterInput {
+  and: [AuthorFilterInput!]
+  or: [AuthorFilterInput!]
+  id: UuidOperationFilterInput
+  personID: UuidOperationFilterInput
+  person: PersonFilterInput
+  books: ListFilterInputTypeOfBookFilterInput
+}
+
+input AuthorSortInput {
+  id: SortEnumType
+  personID: SortEnumType
+  person: PersonSortInput
+}
+
+input BookFilterInput {
+  and: [BookFilterInput!]
+  or: [BookFilterInput!]
+  id: UuidOperationFilterInput
+  title: StringOperationFilterInput
+  genre: GenreEnumOperationFilterInput
+  authorID: UuidOperationFilterInput
+  author: AuthorFilterInput
+  bookReviews: ListFilterInputTypeOfBookReviewFilterInput
+  bookEditions: ListFilterInputTypeOfBookEditionFilterInput
+}
+
+input BookSortInput {
+  id: SortEnumType
+  title: SortEnumType
+  genre: SortEnumType
+  authorID: SortEnumType
+  author: AuthorSortInput
+}
+
+input BookReviewFilterInput {
+  and: [BookReviewFilterInput!]
+  or: [BookReviewFilterInput!]
+  id: UuidOperationFilterInput
+  reviewerID: UuidOperationFilterInput
+  bookID: UuidOperationFilterInput
+  rating: IntOperationFilterInput
+  reviewText: StringOperationFilterInput
+  reviewDate: DateTimeOperationFilterInput
+  book: BookFilterInput
+  reviewer: ReviewerFilterInput
+}
+
+input BookReviewSortInput {
+  id: SortEnumType
+  reviewerID: SortEnumType
+  bookID: SortEnumType
+  rating: SortEnumType
+  reviewText: SortEnumType
+  reviewDate: SortEnumType
+  book: BookSortInput
+  reviewer: ReviewerSortInput
+}
+
+input PersonFilterInput {
+  and: [PersonFilterInput!]
+  or: [PersonFilterInput!]
+  id: UuidOperationFilterInput
+  firstName: StringOperationFilterInput
+  lastName: StringOperationFilterInput
+  fullName: StringOperationFilterInput
+  email: StringOperationFilterInput
+  bio: StringOperationFilterInput
+  author: AuthorFilterInput
+  reviewer: ReviewerFilterInput
+}
+
+input PersonSortInput {
+  id: SortEnumType
+  firstName: SortEnumType
+  lastName: SortEnumType
+  fullName: SortEnumType
+  email: SortEnumType
+  bio: SortEnumType
+  author: AuthorSortInput
+  reviewer: ReviewerSortInput
+}
+
+input ReviewerFilterInput {
+  and: [ReviewerFilterInput!]
+  or: [ReviewerFilterInput!]
+  id: UuidOperationFilterInput
+  personID: UuidOperationFilterInput
+  person: PersonFilterInput
+  bookReviews: ListFilterInputTypeOfBookReviewFilterInput
+}
+
+input ReviewerSortInput {
+  id: SortEnumType
+  personID: SortEnumType
+  person: PersonSortInput
+}
+
+input UuidOperationFilterInput {
+  eq: UUID
+  neq: UUID
+  in: [UUID]
+  nin: [UUID]
+  gt: UUID
+  ngt: UUID
+  gte: UUID
+  ngte: UUID
+  lt: UUID
+  nlt: UUID
+  lte: UUID
+  nlte: UUID
+}
+
+input ListFilterInputTypeOfBookFilterInput {
+  all: BookFilterInput
+  none: BookFilterInput
+  some: BookFilterInput
+  any: Boolean
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input GenreEnumOperationFilterInput {
+  eq: GenreEnum
+  neq: GenreEnum
+  in: [GenreEnum!]
+  nin: [GenreEnum!]
+}
+
+input ListFilterInputTypeOfBookReviewFilterInput {
+  all: BookReviewFilterInput
+  none: BookReviewFilterInput
+  some: BookReviewFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfBookEditionFilterInput {
+  all: BookEditionFilterInput
+  none: BookEditionFilterInput
+  some: BookEditionFilterInput
+  any: Boolean
+}
+
+input IntOperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input DateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime]
+  nin: [DateTime]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+scalar UUID @specifiedBy(url: "https://tools.ietf.org/html/rfc4122")
+
+input BookEditionFilterInput {
+  and: [BookEditionFilterInput!]
+  or: [BookEditionFilterInput!]
+  id: UuidOperationFilterInput
+  bookID: UuidOperationFilterInput
+  editionNumber: IntOperationFilterInput
+  format: FormatEnumOperationFilterInput
+  publisherID: UuidOperationFilterInput
+  publicationDate: DateTimeOperationFilterInput
+  book: BookFilterInput
+  publisher: PublishingHouseFilterInput
+}
+
+"""
+The `DateTime` scalar represents an ISO-8601 compliant date time type.
+"""
+scalar DateTime @specifiedBy(url: "https://www.graphql-scalars.com/date-time")
+
+input FormatEnumOperationFilterInput {
+  eq: FormatEnum
+  neq: FormatEnum
+  in: [FormatEnum!]
+  nin: [FormatEnum!]
+}
+
+input PublishingHouseFilterInput {
+  and: [PublishingHouseFilterInput!]
+  or: [PublishingHouseFilterInput!]
+  id: UuidOperationFilterInput
+  name: StringOperationFilterInput
+  address: StringOperationFilterInput
+  country: StringOperationFilterInput
+  bookEditions: ListFilterInputTypeOfBookEditionFilterInput
+}
+
+input AddBookInput {
+  title: String!
+  authorId: UUID!
+  genre: GenreEnum!
+}
+
+type Book {
+  id: UUID!
+  title: String!
+  genre: GenreEnum!
+  authorID: UUID!
+  author: Author!
+  bookReviews: [BookReview!]!
+  bookEditions: [BookEdition!]!
+}
+
+type Author {
+  id: UUID!
+  personID: UUID!
+  person: Person!
+  books: [Book!]!
+}
+
+type BookReview {
+  id: UUID!
+  reviewerID: UUID!
+  bookID: UUID!
+  rating: Int!
+  reviewText: String!
+  reviewDate: DateTime!
+  book: Book!
+  reviewer: Reviewer!
+}
+
+input AddBookReviewInput {
+  reviewerID: UUID!
+  bookID: UUID!
+  rating: Int!
+  reviewText: String
+}
+
+type Person {
+  id: UUID!
+  firstName: String!
+  lastName: String!
+  fullName: String!
+  email: String!
+  bio: String!
+  author: Author
+  reviewer: Reviewer
+}
+
+input AddPersonInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  bio: String
+}
+
+type Reviewer {
+  id: UUID!
+  personID: UUID!
+  person: Person!
+  bookReviews: [BookReview!]!
+}
+
+enum GenreEnum {
+  FICTION
+  NON_FICTION
+  MYSTERY
+  SCIENCE_FICTION
+  FANTASY
+  BIOGRAPHY
+}
+
+enum FormatEnum {
+  HARDCOVER
+  PAPERBACK
+  E_BOOK
+  AUDIOBOOK
+}
+
+type BookEdition {
+  id: UUID!
+  bookID: UUID!
+  editionNumber: Int!
+  format: FormatEnum!
+  publisherID: UUID!
+  publicationDate: DateTime!
+  book: Book!
+  publisher: PublishingHouse!
+}
+
+type PublishingHouse {
+  id: UUID!
+  name: String!
+  address: String!
+  country: String!
+  bookEditions: [BookEdition!]!
+}

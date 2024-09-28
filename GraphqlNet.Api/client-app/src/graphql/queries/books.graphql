@@ -1,0 +1,18 @@
+
+
+query GetBooks {
+  totalRewiewsCount
+  totalBooks
+  books(order: [{ title: ASC }], where: { title: { contains: "" } }) {
+    id
+    title
+    genre
+    author {
+      person {
+        firstName
+        lastName
+        fullName
+      }
+    }
+  }
+}

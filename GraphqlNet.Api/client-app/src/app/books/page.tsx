@@ -3,35 +3,14 @@ import DefaultLayout from "@/components/layout/DefaultLayout";
 import TableWrapper from "@/components/ui/table/tableWrapper/TableWrapper";
 import Td from "@/components/ui/table/td/Td";
 import Th from "@/components/ui/table/th/Th";
-import { gql, useQuery } from '@apollo/client';
-
-// Define GraphQL query
-const GET_DATA = gql`
-  query GetBooks {
-    totalRewiewsCount
-    totalBooks
-    books(order: [{ title: ASC }], where: { title: { contains: "" } }) {
-      id
-      title
-      genre
-      author {
-        person {
-          firstName
-          lastName
-          fullName
-        }
-      }
-    }
-  }
-`;
+import { GetBooksDocument, GetBooksQuery } from "@/generated/graphql";
+import { useQuery } from '@apollo/client';
 
 export default function Books() {
-  const { loading, error, data } = useQuery(GET_DATA);
+  const { loading, error, data } = useQuery<GetBooksQuery>(GetBooksDocument);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-
-  console.log(data);
 
   return <DefaultLayout title="Books">
     <TableWrapper>
@@ -63,7 +42,7 @@ export default function Books() {
     <div>
       <h1>GraphQL Data</h1>
       <ul>
-        {data.books.map((item: { id: string; title: string }) => (
+        {data?.books.map((item: { id: string; title: string }) => (
           <li key={item.id}>{item.title}</li>
         ))}
       </ul>

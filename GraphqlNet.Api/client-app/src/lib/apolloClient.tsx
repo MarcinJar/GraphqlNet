@@ -7,3 +7,34 @@ const client = new ApolloClient({
 });
 
 export default client;
+
+let apolloClient: ApolloClient<any>;
+
+function createApolloClient() {
+  return new ApolloClient({
+    uri: 'YOUR_GRAPHQL_API_ENDPOINT', // Replace with your GraphQL endpoint
+    cache: new InMemoryCache(),
+  });
+}
+
+export function initializeApollo(initialState = {}) {
+  // Create a new Apollo Client instance if it doesn't exist
+  const client = apolloClient ?? createApolloClient();
+
+  // If the client is already created, reset the cache to the initial state
+  if (initialState) {
+    client.cache.restore(initialState);
+  }
+
+  // If running in a server environment, set the client instance
+  if (typeof window === 'undefined') {
+    return client;
+  }
+
+  // Create the Apollo Client instance once for the browser
+  if (!apolloClient) {
+    apolloClient = client;
+  }
+
+  return client;
+}
